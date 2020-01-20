@@ -1,0 +1,44 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model PagedList.IPagedList<FilmsC.Models.Film>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Главная";
+}
+
+<div class="jumbotron jumb">
+    <h1>Каталог фильмов</h1>
+</div>
+<table class="table">
+    <tr>
+        <th>Название</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*if (item.Poster != null)
+                {
+                    <td>
+
+                        @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Poster) + "\" />")
+
+                    </td>
+                }*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+

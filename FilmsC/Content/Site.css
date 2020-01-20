@@ -1,0 +1,55 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.jumb {
+    background-color: lightblue;
+    text-align: center;
+    height: 100px;
+    font-size: 63px;
+}
+
+.nbbg {
+    background-color: #346CB0;
+}
+
+.finp {
+    margin-top: 3px;
+    max-width: 600px;
+}
+
+.mt {
+    margin-top: 3px;
+}
+
+.jumbotron h1 {
+    margin-top: -35px;
+}
+
+.navbar-fixed-top {
+    top: 0;
+    border-width: 0 0 1px;
+    background-color: #346CB0;
+}
+
