@@ -20,8 +20,7 @@ namespace FilmsC.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
@@ -29,5 +28,7 @@ namespace FilmsC.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Film> Films { get; set; }
     }
 }
