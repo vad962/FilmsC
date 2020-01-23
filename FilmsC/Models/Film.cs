@@ -39,6 +39,7 @@ namespace FilmsC.Models
         [Display(Name = "Жанр")]
         public string Genre { get; set; }
         //Владелец записи
+        [Required]
         [StringLength(255)]
         [Display(Name = "Добавил")]
         public string Owner { get; set; }
