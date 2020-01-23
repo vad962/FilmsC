@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FilmsC.Models;
+using PagedList;
 
 namespace FilmsC.Controllers
 {
@@ -17,9 +18,12 @@ namespace FilmsC.Controllers
         private Film FilmModel;
 
         // GET: Films
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
-            return View(await db.Films.ToListAsync());
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+            List<Film> films = await db.Films.ToListAsync();  
+            return View(films.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Films/Details/5
@@ -34,13 +38,15 @@ namespace FilmsC.Controllers
             {
                 return HttpNotFound();
             }
+            Session["FilmModel"] = film;
             return View(film);
         }
 
         // GET: Films/Create
         public ActionResult Create()
         {
-            return View();
+            FilmModel = new Film();
+            return View(FilmModel);
         }
 
         // POST: Films/Create

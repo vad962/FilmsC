@@ -60,6 +60,7 @@ namespace FilmsC.Models
 
         public Film()
         {
+            Owner = "";
         }
 
         #endregion Constructor

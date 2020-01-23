@@ -10,28 +10,29 @@ namespace FilmsC.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationDbContext db;
-        private Film mModel;
-        List<Film> Films;
+        //private ApplicationDbContext db;
+        //private Film mModel;
+        //List<Film> Films;
 
         public HomeController()
         {
-            Films = new List<Film>();
-            Films.Add(new Film { Name = "Samsung Galaxi", Description = "Фильм 1 Описание" });
-            Films.Add(new Film { Name = "Samsung Galaxi II", Description = "Фильм 2 Описание" });
-            Films.Add(new Film { Name = "Samsung Galaxi II", Description = "Фильм 3 Описание" });
-            Films.Add(new Film { Name = "Samsung ACE", Description = "Фильм 4 Описание" });
-            Films.Add(new Film { Name = "Samsung ACE II", Description = "Фильм 5 Описание" });
-            Films.Add(new Film { Name = "HTC One S", Description = "Фильм 6 Описание" });
-            Films.Add(new Film { Name = "HTC One X", Description = "Фильм 7 Описание" });
-            Films.Add(new Film { Name = "Nokia N9", Description = "Фильм 8 Описание" });
+            //Films = new List<Film>();
+            //Films.Add(new Film { Name = "Samsung Galaxi", Description = "Фильм 1 Описание" });
+            //Films.Add(new Film { Name = "Samsung Galaxi II", Description = "Фильм 2 Описание" });
+            //Films.Add(new Film { Name = "Samsung Galaxi II", Description = "Фильм 3 Описание" });
+            //Films.Add(new Film { Name = "Samsung ACE", Description = "Фильм 4 Описание" });
+            //Films.Add(new Film { Name = "Samsung ACE II", Description = "Фильм 5 Описание" });
+            //Films.Add(new Film { Name = "HTC One S", Description = "Фильм 6 Описание" });
+            //Films.Add(new Film { Name = "HTC One X", Description = "Фильм 7 Описание" });
+            //Films.Add(new Film { Name = "Nokia N9", Description = "Фильм 8 Описание" });
         }
 
-        public ActionResult Index(int? page)
+        public RedirectToRouteResult Index()
         {
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-            return View(Films.ToPagedList(pageNumber, pageSize));
+            //int pageSize = 3;
+            //int pageNumber = (page ?? 1);
+            //return View(Films.ToPagedList(pageNumber, pageSize));
+            return RedirectToAction("Index", "Film");
         }
 
         public ActionResult About()

@@ -22,10 +22,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Главная", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Добавить...", "AddFilm", "Home")</li>
-                    <li>@Html.ActionLink("Удалить...", "DeleteFilm", "Home")</li>
-                    <li>@Html.ActionLink("Изменить...", "EditFilm", "Home")</li>
+                    <li>@Html.ActionLink("Главная", "Index", "Film")</li>
+                    <li>@Html.ActionLink("Добавить...", "Create", "Film")</li>
+                    @*<li>@Html.ActionLink("Удалить...", "DeleteFilm", "Home")</li>
+                    <li>@Html.ActionLink("Изменить...", "EditFilm", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -34,10 +34,10 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Каталог фильмов</p>
-        </footer>
     </div>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Каталог фильмов</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

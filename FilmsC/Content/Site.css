@@ -53,3 +53,19 @@ textarea {
     background-color: #346CB0;
 }
 
+.imCenter {
+    display: block;
+    margin: 114px auto 0 auto;
+}
+.dCenter {
+    margin: 0 auto;
+    width: 200px;
+}
+
+footer {
+    background-color: #346CB0;
+    color: white;
+    text-align: center;
+    height: 30px;
+    padding: 0.3em;
+}
