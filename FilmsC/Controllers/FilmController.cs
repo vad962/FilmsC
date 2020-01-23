@@ -14,6 +14,7 @@ namespace FilmsC.Controllers
     public class FilmController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private Film FilmModel;
 
         // GET: Films
         public async Task<ActionResult> Index()
@@ -71,6 +72,8 @@ namespace FilmsC.Controllers
             {
                 return HttpNotFound();
             }
+            //Сохранить модель
+            Session["FilmModel"] = film;
             return View(film);
         }
 
@@ -114,6 +117,31 @@ namespace FilmsC.Controllers
             db.Films.Remove(film);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AddPoster(HttpPostedFileBase upload)
+        {
+            //Получить модель
+            Film film = (Film)Session["FilmModel"];
+            if(film == null)
+            {
+                return View("Index");  
+            }
+            if (upload != null)
+            {
+                // получаем имя файла
+                film.PosterName = upload.FileName;
+                film.ContentType = upload.ContentType;
+                //считаем загруженный файл в массив
+                film.Poster = new byte[upload.ContentLength];
+                upload.InputStream.Read(film.Poster, 0, upload.ContentLength);
+                // сохраняем файл в БД
+                db.Entry(film).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            FilmModel = (Film)Session["FilmModel"];
+            return View("Edit", FilmModel);
         }
 
         protected override void Dispose(bool disposing)
