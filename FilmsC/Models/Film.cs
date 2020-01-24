@@ -49,9 +49,11 @@ namespace FilmsC.Models
         //Картинка
         //Название картинки
         [StringLength(255)]
+        [Display(Name = "Файл постера")]
         public string PosterName { get; set; }
         //Тип картинки
         [StringLength(100)]
+        [Display(Name = "Изображение")]
         public string ContentType { get; set; }
         //-------------------------------------------------
         #endregion Properties
@@ -60,7 +62,10 @@ namespace FilmsC.Models
 
         public Film()
         {
-            Owner = "";
+            //string own = "";
+            //if (HttpContext.Current.User != null)
+            // own = HttpContext.Current.User.Identity.Name;
+            //Owner = own;
         }
 
         #endregion Constructor

@@ -30,7 +30,7 @@
         }
     </div>
     <div class="col-md-9">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Edit", "Film", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
 
@@ -89,7 +89,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" value="Сохранить" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
