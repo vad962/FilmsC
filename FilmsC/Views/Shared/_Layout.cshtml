@@ -23,9 +23,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Главная", "Index", "Film")</li>
-                    <li>@Html.ActionLink("Добавить...", "Create", "Film")</li>
-                    @*<li>@Html.ActionLink("Удалить...", "DeleteFilm", "Home")</li>
-                    <li>@Html.ActionLink("Изменить...", "EditFilm", "Home")</li>*@
+                    @if (User.Identity.IsAuthenticated == true)
+                    {
+                        <li>@Html.ActionLink("Добавить...", "Create", "Film")</li>
+                    }
+                    <li>@Html.ActionLink("Информация", "About", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

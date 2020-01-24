@@ -45,8 +45,9 @@ namespace FilmsC.Controllers
         // GET: Films/Create
         public ActionResult Create()
         {
-            FilmModel = new Film();
-            return View(FilmModel);
+            var film = new Film { Owner = User.Identity.Name };
+            Session["FilmModel"] = film;
+            return View(film);
         }
 
         // POST: Films/Create
@@ -146,8 +147,8 @@ namespace FilmsC.Controllers
                 db.Entry(film).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            FilmModel = (Film)Session["FilmModel"];
-            return View("Edit", FilmModel);
+            Session["FilmModel"] = film;
+            return View("Edit", film);
         }
 
         protected override void Dispose(bool disposing)

@@ -4,80 +4,86 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Главная"; // DateTime.Now.Date.ToString("dd.MM.yyyy");
+    ViewBag.Title = "Главная"; 
 }
-     
+
 <h2>Каталог</h2>
-
-<p>
-    @Html.ActionLink("Добавить фильм", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Постер
-        </th>
-        <th>
-            Название фильма
-        </th>
-        <th>
-            Описание
-        </th>
-        <th>
-            Год выпуска
-        </th>
-        <th>
-            Режиссер
-        </th>
-        <th>
-            Жанр
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@if (User.Identity.IsAuthenticated == true)
+{
+    <p>
+        @Html.ActionLink("Добавить фильм", "Create")
+    </p>
+}
+    <table class="table">
         <tr>
-            <td>
-                @if (item.Poster == null || item.Poster.Length <= 1)
-                {
-                    //Выводим пустое место
-                    <span>Постер</span>
-                }
-                else
-                {
-                    //Выводим картинку
-                    string imgurl = "data:" + item.ContentType + ";base64," + Convert.ToBase64String(item.Poster);
-                    <img src=@imgurl width="80" />
-                }
-            </td>
-            <td>
-                <label class="control-label">@Html.DisplayFor(modelItem => item.Name)</label>
-</td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Producer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-
-            <td>
-                @Html.ActionLink("Изменить", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Подробно", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
-            </td>
+            <th>
+                Постер
+            </th>
+            <th>
+                Название фильма
+            </th>
+            <th>
+                Описание
+            </th>
+            <th>
+                Год выпуска
+            </th>
+            <th>
+                Режиссер
+            </th>
+            <th>
+                Жанр
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.Poster == null || item.Poster.Length <= 1)
+                    {
+                        //Выводим пустое место
+                        <span>Постер</span>
+                    }
+                    else
+                    {
+                        //Выводим картинку
+                        string imgurl = "data:" + item.ContentType + ";base64," + Convert.ToBase64String(item.Poster);
+                        <img src=@imgurl width="80" />
+                    }
+                </td>
+                <td>
+                    <label class="control-label">@Html.DisplayFor(modelItem => item.Name)</label>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Producer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    <span>@Html.ActionLink("Подробно", "Details", new { id = item.ID }) |</span>
+                    @if (User.Identity.IsAuthenticated == true && User.Identity.Name == item.Owner)
+                    {
+                        <span>
+                            @Html.ActionLink("Изменить", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
+                        </span>
+                    }
+                </td>
+            </tr>
+        }
 
-<br />
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+    </table>
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    <br />
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
