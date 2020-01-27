@@ -69,11 +69,11 @@
                     @Html.DisplayFor(modelItem => item.Genre)
                 </td>
                 <td>
-                    <span>@Html.ActionLink("Подробно", "Details", new { id = item.ID }) |</span>
-                    @if (User.Identity.IsAuthenticated == true && User.Identity.Name == item.Owner)
+                    <span>@Html.ActionLink("Подробно", "Details", new { id = item.ID })</span>
+                    @if (User.Identity.IsAuthenticated == true && (User.Identity.Name == item.Owner || User.IsInRole("admin") == true))
                     {
                         <span>
-                            @Html.ActionLink("Изменить", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Изменить", "Edit", new { id = item.ID }) 
                             @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
                         </span>
                     }

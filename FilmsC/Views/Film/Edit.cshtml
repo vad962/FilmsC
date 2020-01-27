@@ -27,6 +27,9 @@
             //Выводим картинку
             string imgurl = "data:" + Model.ContentType + ";base64," + Convert.ToBase64String(Model.Poster);
             <img src=@imgurl width="80" class="imCenter" />
+            <div>
+                <span class="txtCenter"> @Html.ActionLink("Изменить постер", "ChangePoster", new { id = Model.ID })</span>
+            </div>
         }
     </div>
     <div class="col-md-9">

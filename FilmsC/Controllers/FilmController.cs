@@ -43,6 +43,7 @@ namespace FilmsC.Controllers
         }
 
         // GET: Films/Create
+        [Authorize]
         public ActionResult Create()
         {
             var film = new Film { Owner = User.Identity.Name };
@@ -68,6 +69,7 @@ namespace FilmsC.Controllers
         }
 
         // GET: Films/Edit/5
+        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,6 +80,12 @@ namespace FilmsC.Controllers
             if (film == null)
             {
                 return HttpNotFound();
+            }
+            if (film.Owner != User.Identity.Name && User.IsInRole("admin") == false)
+            {
+                string msg = "Изменять информацию о фильме может пользователь, добавивший его в каталог.";
+                ViewBag.Message = msg;
+                return View("Error");
             }
             //Сохранить модель
             Session["FilmModel"] = film;
@@ -101,6 +109,25 @@ namespace FilmsC.Controllers
         }
 
         // GET: Films/Delete/5
+        [Authorize]
+        public ActionResult ChangePoster()
+        {
+            Film film = (Film)Session["FilmModel"];
+            if (film == null)
+            {
+                ViewBag.Message = "Не определена запись для редактирования. Функция Изменить постер.";
+                return View("Error");
+            }
+            film.Poster = new byte[1];
+            film.PosterName = "";
+            film.ContentType = "";
+            Session["FilmModel"] = film;
+            return View("Edit", film);
+        }
+
+
+        // GET: Films/Delete/5
+        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +164,11 @@ namespace FilmsC.Controllers
             }
             if (upload != null)
             {
+                if (film.Owner != User.Identity.Name && User.IsInRole("admin") == false)
+                {
+                    ViewBag.Message = "ДОбавить постер. Изменять информацию о фильме может администратор или пользователь, добавивший его в каталог."; ;
+                    return View("Error");
+                }
                 // получаем имя файла
                 film.PosterName = upload.FileName;
                 film.ContentType = upload.ContentType;
